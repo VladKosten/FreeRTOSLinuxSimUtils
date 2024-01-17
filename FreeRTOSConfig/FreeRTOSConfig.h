@@ -1,6 +1,6 @@
 /*
- * FreeRTOS V202111.00
- * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
+ * FreeRTOS V202212.00
+ * Copyright (C) 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -34,16 +34,16 @@
 *
 * THESE PARAMETERS ARE DESCRIBED WITHIN THE 'CONFIGURATION' SECTION OF THE
 * FreeRTOS API DOCUMENTATION AVAILABLE ON THE FreeRTOS.org WEB SITE.  See
-* http://www.freertos.org/a00110.html
+* https://www.FreeRTOS.org/a00110.html
 *----------------------------------------------------------*/
 
 #define configUSE_PREEMPTION                       1
 #define configUSE_PORT_OPTIMISED_TASK_SELECTION    0
-#define configUSE_IDLE_HOOK                        1
+#define configUSE_IDLE_HOOK                        0
 #define configUSE_TICK_HOOK                        0
 #define configUSE_DAEMON_TASK_STARTUP_HOOK         0
 #define configTICK_RATE_HZ                         ( 1000 )                  /* In this non-real time simulated environment the tick frequency has to be at least a multiple of the Win32 tick frequency, and therefore very slow. */
-#define configMINIMAL_STACK_SIZE                    ( ( unsigned short ) PTHREAD_STACK_MIN ) /* The stack size being passed is equal to the minimum stack size needed by pthread_create(). */
+#define configMINIMAL_STACK_SIZE                   ( ( unsigned short ) PTHREAD_STACK_MIN ) /* The stack size being passed is equal to the minimum stack size needed by pthread_create(). */
 #define configTOTAL_HEAP_SIZE                      ( ( size_t ) ( 65 * 1024 ) )
 #define configMAX_TASK_NAME_LEN                    ( 12 )
 #define configUSE_TRACE_FACILITY                   1
@@ -60,6 +60,7 @@
 #define configUSE_TASK_NOTIFICATIONS               1
 #define configSUPPORT_DYNAMIC_ALLOCATION           1
 #define configSUPPORT_STATIC_ALLOCATION            0
+#define configRECORD_STACK_HIGH_ADDRESS            1
 
 /* Software timer related configuration options.  The maximum possible task
  * priority is configMAX_PRIORITIES - 1.  The priority of the timer task is
@@ -111,6 +112,9 @@ void vConfigureTimerForRunTimeStats( void );    /* Prototype of function that in
 #define INCLUDE_xSemaphoreGetMutexHolder          1
 #define INCLUDE_xTimerPendFunctionCall            1
 #define INCLUDE_xTaskAbortDelay                   1
+
+#define configINCLUDE_MESSAGE_BUFFER_AMP_DEMO     0
+
 
 /* Terrible but necessary. */
 
