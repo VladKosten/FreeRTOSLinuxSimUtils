@@ -115,11 +115,8 @@ void vConfigureTimerForRunTimeStats( void );    /* Prototype of function that in
 
 #define configINCLUDE_MESSAGE_BUFFER_AMP_DEMO     0
 
-
 /* Terrible but necessary. */
-
 #include <stdbool.h>
-
 #define is_in_isr()                     _is_in_isr()
 /**
  * \brief Check if it's in ISR handling
@@ -129,5 +126,6 @@ static inline bool _is_in_isr(void)
 {
     return (false);
 }
+
 
 #endif /* FREERTOS_CONFIG_H */
