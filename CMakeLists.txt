@@ -2,13 +2,7 @@ cmake_minimum_required(VERSION 3.20)
 
 project(FreeRtosSimUtills)
 
-if(WIN32)
-    message(STATUS "WINDOWS")
-    add_subdirectory(Win32MiniGw)
-else()
-    message(STATUS "UNIX")
-    add_subdirectory(PosixGcc)
-endif()
+add_subdirectory(FreeRtosConfig)
 
 #Add fetch content to the project
 include(FetchContent)
@@ -21,14 +15,21 @@ FetchContent_Declare(
 )
 # Select the heap port
 message(STATUS "Setting FREERTOS_HEAP=3")
-set( FREERTOS_HEAP "3")
+set(FREERTOS_HEAP "3")
 # Select the native compile PORT
-if(WIN32)
-    message(STATUS "Windows, setting FREERTOS_PORT=MSVC_MINIGW")
-    set(FREERTOS_PORT "MSVC_MINGW")
-else()
-    message(STATUS "UNIX, setting FREERTOS_PORT=GCC_POSIX")
-    set(FREERTOS_PORT "GCC_POSIX")
-endif()
+message(STATUS "UNIX, setting FREERTOS_PORT=GCC_POSIX")
+set(FREERTOS_PORT "GCC_POSIX")
 # And make it available
 FetchContent_MakeAvailable(freertos_kernel)
+
+add_executable(RunUnitTest main.c
+                           console.c
+                           run-time-stats-utils.c)
+
+target_include_directories(RunUnitTest PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+
+target_link_libraries(RunUnitTest   PRIVATE UnitTest
+                                    PRIVATE freertos_kernel
+                                    PRIVATE freertos_config)
+
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/.)

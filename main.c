@@ -129,9 +129,6 @@ int main(int argc, const char** argv)
     vTaskStartScheduler();
 
     return out;
-
-
-    return 0;
 }
 
 static void prvTaskTest( void * obj )
